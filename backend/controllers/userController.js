@@ -1,5 +1,5 @@
 import User from '../model/userModel.js'
-import generateToken from '../utils/generateToken.js'
+import jwt from 'jsonwebtoken'
 
 const sample = async (req,res)=>{
     try {
@@ -19,12 +19,13 @@ const signup = async (req,res)=>{
         password:req.body.password,
        })
 
-       const result = await data.save()
-       generateToken(res,result._id)
-        res.status(200).json(req.body)
+       const userData = await data.save()
+       const token = jwt.sign({userId:userData._id},process.env.JWT_SECRET,{expiresIn:'30d'})
+       console.log(token);
+       res.json({userData,token,status:true})
 
     } catch (error) {
-        
+        console.log(error.message);
     }
 }
 
