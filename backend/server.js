@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import userRoute from './routes/userRoutes.js'
+import adminRoute from './routes/adminRoutes.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -25,6 +26,7 @@ app.use(
 
 
 app.use('/',userRoute)
+app.use('/admin',adminRoute)
 
 
 app.listen(port,()=>console.log("server started"))

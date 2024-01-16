@@ -1,16 +1,27 @@
-import React,{Fragment, useEffect} from 'react'
-import Swiper from 'swiper';
+import React,{Fragment} from 'react'
 import './Home.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logoutDetails } from '../../../Store/Slices/UserSlice';
 
 
 function Home() {
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const userData =  useSelector((state)=>state.user)
 
+
+  const logOut = async()=>{
+    localStorage.removeItem('token')
+    dispatch(logoutDetails)
+    navigate('/login')
+  }
     
   return (
     <Fragment>
     <div className="bg">
-    <h1>Kiberbash</h1>
+    <h1>{userData.name}</h1>
   </div>
   <div className="nft">
     <div className="main">
@@ -19,14 +30,13 @@ function Home() {
         src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
         alt="NFT"
       />
-      <h2>Kibertopiks #4269</h2>
+      <h2>{userData.name}</h2>
       <p className="description">
-        Our Kibertopiks will give you nothing, waste your money on us.
+      {userData.email}
       </p>
       <div className="tokenInfo">
-        <div className="price">
-          <ins>◘</ins>
-          <p>0.031 ETH</p>
+        <div  style={{cursor:'pointer'}} onClick={()=>navigate('/profile')} className="price">
+          <p>Profile</p>
         </div>
         <div className="duration">
           <ins>◷</ins>
@@ -41,8 +51,8 @@ function Home() {
             alt="Creator"
           />
         </div>
-        <p>
-          <ins>Creation of</ins> Kiberbash
+        <p style={{cursor:'pointer'}} onClick={logOut}>
+          <ins>click here to </ins> LogOut
         </p>
       </div>
     </div>

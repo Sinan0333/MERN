@@ -13,7 +13,18 @@ const userSignUp = async (signUpData)=>{
     }
 }
 
+const userLogin = async (logginData)=>{
+    try {
+        const data = await userApi.post('/login',logginData)
+        console.log(data.data);
+        return data.data
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 export{
-    userSignUp
+    userSignUp,
+    userLogin,
 }

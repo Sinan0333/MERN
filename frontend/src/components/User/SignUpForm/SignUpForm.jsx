@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import './SignUpForm.css'
-import { userSignUp } from '../../Api/userApi'
+import { userSignUp } from '../../../Api/userApi'
+import { useDispatch } from 'react-redux'
+import { setUserDetails } from '../../../Store/Slices/UserSlice'
+
 
 function SignUpForm() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [name,setName] = useState("")
     const [email,setEamil] = useState("")
@@ -13,7 +17,7 @@ function SignUpForm() {
     const [error,setError] = useState('')
     const emailPattern =  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const handleSubmit = async (e)=>{
+    const signUP = async (e)=>{
       e.preventDefault()
      try {
 
@@ -31,6 +35,13 @@ function SignUpForm() {
 
       if(signUpResposnse.status){
         localStorage.setItem('token',signUpResposnse.token)
+        dispatch(setUserDetails({
+          id:signUpResposnse.userData._id,
+          name:signUpResposnse.userData.name,
+          email:signUpResposnse.userData.email,
+          is_Admin:signUpResposnse.userData.is_Admin,
+          token:signUpResposnse.token
+        }))
         navigate('/')
       }else{
         setError('Email already exist')
@@ -46,7 +57,7 @@ function SignUpForm() {
     <div className='container'>
     <div className="card">
     <div className="card2">
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={signUP}>
         <p id="heading">Sign Up</p>
         <div className="field">
           <svg
