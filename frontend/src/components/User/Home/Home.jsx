@@ -11,10 +11,9 @@ function Home() {
   const dispatch = useDispatch()
   const userData =  useSelector((state)=>state.user)
 
-
   const logOut = async()=>{
     localStorage.removeItem('token')
-    dispatch(logoutDetails)
+    dispatch(logoutDetails())
     navigate('/login')
   }
     
@@ -27,7 +26,11 @@ function Home() {
     <div className="main">
       <img
         className="tokenImage"
-        src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+         src={
+          userData.image
+            ? `/uploads/${userData.image}`
+            : "https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1"
+        }
         alt="NFT"
       />
       <h2>{userData.name}</h2>
@@ -47,7 +50,11 @@ function Home() {
       <div className="creator">
         <div className="wrapper">
           <img
-            src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+           src={
+            userData.image
+              ? `/uploads/${userData.image}`
+              : "https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1"
+          }
             alt="Creator"
           />
         </div>

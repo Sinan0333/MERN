@@ -151,3 +151,9 @@ table.table .avatar {
     margin-top: 10px;
     font-size: 13px;
 }
+.add-button{
+    margin-left: 10px;
+    font-weight: bold;
+    background-color: transparent;
+
+}

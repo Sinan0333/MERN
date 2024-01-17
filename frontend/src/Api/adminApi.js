@@ -43,12 +43,20 @@ const AdminApi = axios.create({
   const updateUserData = async (userData,id)=>{
    try {
     userData.id=id
-    console.log(userData);
     const resposnse = await AdminApi.post('/updateUser',userData)
     return resposnse
    } catch (error) {
     console.log(error.message);
    }
+  }
+
+  const addUserApi = async (userData)=>{
+    try {
+      const resposnse = await AdminApi.post('/adduser',userData)
+      return resposnse.data
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   
 export{
@@ -56,6 +64,7 @@ export{
     listUsers,
     deleteUser,
     loadEditProfle,
-    updateUserData
+    updateUserData,
+    addUserApi
 
 }

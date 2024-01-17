@@ -35,7 +35,8 @@ function LoginForm() {
         name:loginResponse.userData.name,
         email:loginResponse.userData.email,
         is_Admin:loginResponse.userData.is_Admin,
-        token:loginResponse.token
+        image:loginResponse.userData.image,
+        phone:loginResponse.userData.phone,
       }))
       navigate('/')
     }else{

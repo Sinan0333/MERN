@@ -6,6 +6,7 @@ import { loadEditProfle, updateUserData } from '../../../Api/adminApi'
 const initialState={
     name:"",
     email:"",
+    phone:"",
 }
 
 function EditUser() {
@@ -20,7 +21,8 @@ function EditUser() {
             loadEditProfle(id).then((res)=>{
                 const data = {
                     name:res.userData.name,
-                    email:res.userData.email
+                    email:res.userData.email,
+                    phone:res.userData.phone
                 }
                 setUserData(data)
                
@@ -39,6 +41,8 @@ function EditUser() {
             return  setError("Invalid email format")
             }else if(userData.name < 4){
             return setError("Name must contain 4 character")
+            }else if(userData.phone && userData.phone.length < 10){
+                return setError('Phone must contain 10 digits')
             }
             updateUserData(userData,id).then((res)=>{
                 navigate('/admin/dashboard')
@@ -79,23 +83,7 @@ function EditUser() {
                                 <h6 className="mb-0">Phone</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
-                                <input type="text" className="form-control col-input"  />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Mobile</h6>
-                            </div>
-                            <div className="col-sm-9 text-secondary">
-                                <input type="text" className="form-control col-input"  />
-                            </div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-3">
-                                <h6 className="mb-0">Address</h6>
-                            </div>
-                            <div className="col-sm-9 text-secondary">
-                                <input type="text" className="form-control col-input"  />
+                                <input type="text" className="form-control col-input" onChange={(e)=>setUserData({...userData,phone:e.target.value})} value={userData.phone} />
                             </div>
                         </div>
                         <div className="row">
@@ -104,6 +92,7 @@ function EditUser() {
                                 <input type="submit" className="btn btn-primary px-4" value={"save change"} />
                             </div>
                         </div>
+                        {error && <span style={{color:"white",justifyContent:"center",alignItems:"center", display:"flex"}}>{error}</span>}
                     </form>
                 </div>
             </div>

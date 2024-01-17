@@ -40,13 +40,13 @@ function SignUpForm() {
           name:signUpResposnse.userData.name,
           email:signUpResposnse.userData.email,
           is_Admin:signUpResposnse.userData.is_Admin,
-          token:signUpResposnse.token
+          phone:"",
+          image:""
         }))
         navigate('/')
       }else{
-        setError('Email already exist')
+        setError(signUpResposnse.error)
       }
-
      } catch (error) {
       console.log(error.message);
      }

@@ -85,10 +85,34 @@ const updateUser = async (req,res)=>{
     }
 }
 
+
+const addUser = async (req,res)=>{
+    try {
+        const checkExist =await User.findOne({email:req.body.email})
+        if(checkExist){
+            res.json({status:false,error:'User is already exist'})
+        }else{
+            const data = new User({
+                name:req.body.name,
+                email:req.body.email,
+                password:req.body.password,
+                phone:req.body.phone,
+                is_Admin:false
+               })
+        
+               const userData = await data.save()
+               res.json({userData,status:true})
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 export{
     login,
     users,
     delteUser,
     loadEditUser,
-    updateUser
+    updateUser,
+    addUser,
 }
