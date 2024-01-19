@@ -72,7 +72,8 @@ const updateprofile = async(req,res)=>{
                     email:email,
                     image:file
                 }
-            }
+            },
+            {new:true}
         )
         res.json({userData,status:true})
     } catch (error) {
